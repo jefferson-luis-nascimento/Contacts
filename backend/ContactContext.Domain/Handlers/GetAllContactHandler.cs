@@ -26,7 +26,7 @@ namespace ContactContext.Domain.Handlers
         {
             var contacts = await _repository.GetAll();
 
-            var result = new GetAllContactResponse();
+            var result = new List<GetAllContactResponse>();
 
             foreach (var contact in contacts)
             {
@@ -34,44 +34,33 @@ namespace ContactContext.Domain.Handlers
                 {
                     var legalPerson = contact as LegalPerson;
 
-                    result.Contacts.Add(new GetByIdContactResponse
+                    result.Add(new GetAllContactResponse
                     {
                         Id = legalPerson.Id,
                         CompanyName = legalPerson.CompanyName.FullName,
-                        TradeName = legalPerson.TradeName.FullName,
                         Cnpj = legalPerson.Cnpj.Number,
-                        AddressLine1 = legalPerson.Address.AddressLine1,
-                        AddressLine2 = legalPerson.Address.AddressLine2,
                         City = legalPerson.Address.City,
                         State = legalPerson.Address.State,
-                        Country = legalPerson.Address.Country,
-                        ZipCode = legalPerson.Address.ZipCode,
-                        TypePerson = TypePerson.LegalPerson,
+                        TypePerson = TypePerson.LegalPerson.ToString(),
                     });
                 }
                 else
                 {
                     var naturalPerson = contact as NaturalPerson;
 
-                    result.Contacts.Add(new GetByIdContactResponse
+                    result.Add(new GetAllContactResponse
                     {
                         Id = naturalPerson.Id,
                         Name = naturalPerson.Name.FullName,
                         Cpf = naturalPerson.Cpf.Number,
-                        Birthday = naturalPerson.Birthday.Date,
-                        Gender = naturalPerson.Gender,
-                        AddressLine1 = naturalPerson.Address.AddressLine1,
-                        AddressLine2 = naturalPerson.Address.AddressLine2,
                         City = naturalPerson.Address.City,
                         State = naturalPerson.Address.State,
-                        Country = naturalPerson.Address.Country,
-                        ZipCode = naturalPerson.Address.ZipCode,
-                        TypePerson = TypePerson.NaturalPerson,
+                        TypePerson = TypePerson.NaturalPerson.ToString(),
                     });
                 }
             }
 
-            return new CommandResult<GetAllContactResponse>(true, null, result);
+            return new CommandResult<List<GetAllContactResponse>>(true, null, result);
         }
     }
 }

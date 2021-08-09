@@ -52,12 +52,20 @@ namespace ContactContext.Domain.Repositories
                     new Name("Delivery Flash"),
                     new Cnpj("40.353.080/0001-83"),
                     new Address("Rua Doutor Cláudio Dias da Silva", "208", "Campinas", "SP", "Brazi", "13083-460")),
-
                 new NaturalPerson(new Name("Victor Cauê Arthur Ferreira"),
                     new Cpf("679.863.369-27"),
                     new Birthday(new DateTime(1953, 6, 19)),
                     Gender.Male,
-                    new Address("Rua Luís de Toledo Piza", "351", "São Paulo", "SP", "Brazil", "08275-070"))
+                    new Address("Rua Luís de Toledo Piza", "351", "São Paulo", "SP", "Brazil", "08275-070")),
+                new LegalPerson(new Name("Eduarda e Emanuelly Transportes ME"),
+                    new Name("Delivery Flash"),
+                    new Cnpj("40.353.080/0001-83"),
+                    new Address("Rua Doutor Cláudio Dias da Silva", "208", "Campinas", "SP", "Brazi", "13083-460")),
+                new NaturalPerson(new Name("Victor Cauê Arthur Ferreira"),
+                    new Cpf("679.863.369-27"),
+                    new Birthday(new DateTime(1953, 6, 19)),
+                    Gender.Male,
+                    new Address("Rua Luís de Toledo Piza", "351", "São Paulo", "SP", "Brazil", "08275-070")),
             };
         }
     }
