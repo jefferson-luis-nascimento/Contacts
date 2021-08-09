@@ -10,7 +10,7 @@ interface IconInterface {
   color: string;
 }
 
-interface Action {
+interface ActionInterface {
   name: string;
   icon: IconInterface;
   label: string;
@@ -18,7 +18,7 @@ interface Action {
 
 interface ActionProps {
   id: string;
-  actions: Action[];
+  actions: ActionInterface[];
   handleAction(action: string, id: string): void;
 }
 

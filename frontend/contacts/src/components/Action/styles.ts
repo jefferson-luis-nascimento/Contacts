@@ -22,7 +22,7 @@ export const Badge = styled.button<ActionProps>`
   align-items: center;
   border-radius: 50%;
   &:hover {
-    background: #eeefff;
+    background: #ddd;
   }
 `;
 
@@ -33,7 +33,7 @@ export const ActionList = styled.div<ActionProps>`
   }};
   z-index: 1;
   position: absolute;
-  min-width: 250x;
+  min-width: 25px;
   left: calc(50% - 30px);
   top: calc(100% + 10px);
   background: #fff;

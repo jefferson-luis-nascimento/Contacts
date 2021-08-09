@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { MdRemoveRedEye, MdEdit } from 'react-icons/md';
 
-import { Title } from './styles';
+import Action from '../../components/Action';
+import { Container, Table, Title, Row } from './styles';
 
 import api from '../../services/api';
+import history from '../../services/history';
 
 interface Contact {
   id: string;
@@ -13,7 +16,7 @@ interface Contact {
   cpf: string;
   birthday: Date;
   gender: string;
-  typePerson: string;
+  typePerson: number;
   addressLine1: string;
   addressLine2: string;
   city: string;
@@ -31,6 +34,13 @@ interface Result {
 const Dashboard: React.FC<Result> = () => {
   const [contacts, setContacs] = useState<Contact[]>([]);
 
+  function handleVisualize(id: string) {
+    history.push(`/contact/visualize/${id}`);
+  }
+  function handleEdit(id: string) {
+    history.push(`/contact/edit/${id}`);
+  }
+
   useEffect(() => {
     async function loadContacts() {
       const response = await api.get<Result>(`contact`);
@@ -43,16 +53,74 @@ const Dashboard: React.FC<Result> = () => {
     loadContacts();
   }, []);
 
-  return (
-    <>
-      <Title>My Contacts</Title>
+  function handleAction(action: string, id: string) {
+    switch (action.toLowerCase()) {
+      case 'visualize':
+        handleVisualize(id);
+        break;
+      case 'edit':
+        handleEdit(id);
+        break;
+      default:
+        throw new Error('Action not found.');
+    }
+  }
 
-      <ul>
-        {contacts.map(contact => (
-          <li key={contact.id}>{contact.name ?? contact.companyName}</li>
-        ))}
-      </ul>
-    </>
+  return (
+    <Container>
+      <Title>My Contacts</Title>
+      <Table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Document</th>
+            <th>City</th>
+            <th>State</th>
+            <th className="actions">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {contacts.map((contact, index) => (
+            <Row key={contact.id} rowPair={index % 2 === 0}>
+              <td className="name">
+                {contact.typePerson === 0 ? contact.companyName : contact.name}
+              </td>
+              <td className="document">
+                {contact.typePerson === 0 ? contact.cnpj : contact.cpf}
+              </td>
+              <td className="city">{contact.city}</td>
+              <td className="state">{contact.state}</td>
+              <td key="action" className="actions">
+                <Action
+                  id={contact.id}
+                  actions={[
+                    {
+                      name: 'visualize',
+                      icon: {
+                        icon: MdRemoveRedEye,
+                        size: 20,
+                        color: '#4d85ee',
+                      },
+                      label: 'Visualize',
+                    },
+                    {
+                      name: 'edit',
+                      icon: {
+                        icon: MdEdit,
+                        size: 20,
+                        color: '#4d85ee',
+                      },
+                      label: 'Edit',
+                    },
+                  ]}
+                  handleAction={handleAction}
+                />
+              </td>
+            </Row>
+          ))}
+        </tbody>
+      </Table>
+    </Container>
   );
 };
 
