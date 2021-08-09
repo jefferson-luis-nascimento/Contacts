@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ContactContext.Domain\ContactContext.Domain.csproj" />
+    <ProjectReference Include="..\ContactContext.Shared\ContactContext.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
