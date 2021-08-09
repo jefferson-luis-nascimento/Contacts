@@ -7,18 +7,18 @@ export default createGlobalStyle`
     outline: 0;
     box-sizing: border-box;
   }
-
   body {
+    background: #fafafb;
+    color: #1c1c1c;
     -webkit-font-smoothing: antialiased;
-    font: 16px Roboto, sans-serif;
   }
-
-  #root {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 40px 20px;
+  body, input, button {
+    font-family: 'Roboto Slab', serif;
+    font-size: 16px;
   }
-
+  h1,h2,h3,h4,h5,h6, strong {
+    font-weight: 500;
+  }
   button {
     cursor: pointer;
   }
