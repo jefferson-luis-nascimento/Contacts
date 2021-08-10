@@ -94,25 +94,33 @@ export default function Contact() {
     loadContacts(paging.currentPage, filter);
   }, [filter]);
 
-  function handleRegister() {
-    history.push('/register');
+  function handleRegisterNormalPerson() {
+    history.push('/register-np');
+  }
+
+  function handleRegisterLegalPerson() {
+    history.push('/register-lp');
   }
 
   function handleEdit(id, typePerson) {
-    history.push(`/register/${id}/${typePerson}`);
+    if (typePerson === 'Legal') {
+      history.push(`/edit-lp/${id}`);
+    } else {
+      history.push(`/edit-np/${id}`);
+    }
   }
 
-  async function handleView(id, typePerson) {
-    history.push(`/register/${id}/${typePerson}/true`);
+  async function handleView(id) {
+    history.push(`/register/${id}/true`);
   }
 
-  function handleAction(action, id, typePerson) {
+  function handleAction(action, id) {
     switch (action.toLowerCase()) {
       case 'edit':
-        handleEdit(id, typePerson);
+        handleEdit(id);
         break;
       case 'view':
-        handleView(id, typePerson);
+        handleView(id);
         break;
       default:
         throw new Error('Action not found.');
@@ -126,7 +134,8 @@ export default function Contact() {
         filter={filter}
         setFilter={setFilter}
         placeholder="Find by name"
-        handleRegister={handleRegister}
+        handleRegisterNormalPerson={handleRegisterNormalPerson}
+        handleRegisterLegalPerson={handleRegisterLegalPerson}
       />
       <Table
         data={data}

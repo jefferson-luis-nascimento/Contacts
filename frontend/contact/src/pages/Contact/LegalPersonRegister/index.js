@@ -64,11 +64,9 @@ export default function LegalPersonRegister({ match }) {
       });
 
       const {
-        id,
-        name,
-        cpf,
-        birthday,
-        gender,
+        companyName,
+        tradeName,
+        cnpj,
         addressLine1,
         addressLine2,
         city,
@@ -78,20 +76,33 @@ export default function LegalPersonRegister({ match }) {
       } = data;
 
       try {
-        await api.put('/legalperson', {
-          id,
-          name,
-          cpf,
-          birthday,
-          gender,
-          addressLine1,
-          addressLine2,
-          city,
-          state,
-          country,
-          zipCode,
-        });
-        toast.success('Contact register successfully!');
+        if (id) {
+          await api.put('/legalperson', {
+            id,
+            companyName,
+            tradeName,
+            cnpj,
+            addressLine1,
+            addressLine2,
+            city,
+            state,
+            country,
+            zipCode,
+          });
+        } else {
+          await api.post('/legalperson', {
+            companyName,
+            tradeName,
+            cnpj,
+            addressLine1,
+            addressLine2,
+            city,
+            state,
+            country,
+            zipCode,
+          });
+        }
+        toast.success('Contact is saved successfully!');
 
         reset();
         handleBack();
@@ -117,27 +128,31 @@ export default function LegalPersonRegister({ match }) {
         handleBack={handleBack}
         handleSave={() => formRef.current.submitForm()}
       >
-        Edit Contact
+        {id ? 'New Legal Person' : 'Edit Legal Person'}
       </RegisterHeader>
 
       <Form ref={formRef} onSubmit={handleSubmit}>
         <Panel>
-          <Input type="text" name="name" label="Name" placeholder="John Doe" />
           <Input
             type="text"
-            name="cpf"
-            label="CPF"
-            placeholder="EX. 123.456.789-01"
+            name="companyName"
+            label="Company Name"
+            placeholder="Ex. Femsa SA"
           />
           <Input
             type="text"
-            name="birthday"
-            label="Birthday"
-            placeholder="Ex. 15/08/1985"
+            name="tradeName"
+            label="Trade Name"
+            placeholder="Ex. Coca Cola Company"
+          />
+          <Input
+            type="text"
+            name="cnpj"
+            label="CNPJ"
+            placeholder="EX. 01.234.456/0001-01"
           />
         </Panel>
         <Panel>
-          <Input type="text" name="gender" label="Gender" placeholder="Male" />
           <Input
             type="text"
             name="addressLine1"
@@ -150,14 +165,14 @@ export default function LegalPersonRegister({ match }) {
             label="address Line 2"
             placeholder=""
           />
-        </Panel>
-        <Panel>
           <Input
             type="text"
             name="city"
             label="City"
             placeholder="Ex. São Paulo"
           />
+        </Panel>
+        <Panel>
           <Input
             type="text"
             name="state"
@@ -171,8 +186,6 @@ export default function LegalPersonRegister({ match }) {
             label="Country"
             placeholder="EX. Brasil"
           />
-        </Panel>
-        <Panel>
           <Input
             type="text"
             name="zipCode"

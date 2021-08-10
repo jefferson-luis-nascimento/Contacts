@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { MdMoreHoriz } from 'react-icons/md';
 import { Container, Badge, ActionList, ActionItem } from './styles';
 
-export default function Action({ id, typePerson, actions, handleAction }) {
+export default function Action({ id, actions, handleAction }) {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -22,7 +22,7 @@ export default function Action({ id, typePerson, actions, handleAction }) {
 
   function handleActionSelected(action) {
     setVisible(false);
-    handleAction(action, id, typePerson);
+    handleAction(action, id);
   }
 
   return (

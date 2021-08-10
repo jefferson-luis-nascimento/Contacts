@@ -1,4 +1,5 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 
@@ -11,8 +12,33 @@ import Form from '~/components/Form';
 import api from '~/services/api';
 import history from '~/services/history';
 
-export default function NaturalPersonRegister() {
+export default function NaturalPersonRegister({ match }) {
   const formRef = useRef(null);
+
+  const { id } = match.params;
+
+  useEffect(() => {
+    async function loadContact() {
+      if (id) {
+        const response = await api.get(`/contact/legal-person/${id}`);
+
+        formRef.current.setData({
+          name: response.data.name,
+          cpf: response.data.cpf,
+          birthday: response.data.birthday,
+          gender: response.data.gender,
+          addressLine1: response.data.addressLine1,
+          addressLine2: response.data.addressLine2,
+          city: response.data.city,
+          state: response.data.state,
+          country: response.data.coutry,
+          zipCode: response.data.zipCode,
+        });
+      }
+    }
+
+    loadContact();
+  }, [id]);
 
   function handleBack() {
     history.goBack();
@@ -53,20 +79,35 @@ export default function NaturalPersonRegister() {
       } = data;
 
       try {
-        await api.post('/naturalperson', {
-          name,
-          cpf,
-          birthday,
-          gender,
-          addressLine1,
-          addressLine2,
-          city,
-          state,
-          country,
-          zipCode,
-        });
+        if (id) {
+          await api.put('/naturalperson', {
+            name,
+            cpf,
+            birthday,
+            gender,
+            addressLine1,
+            addressLine2,
+            city,
+            state,
+            country,
+            zipCode,
+          });
+        } else {
+          await api.post('/naturalperson', {
+            name,
+            cpf,
+            birthday,
+            gender,
+            addressLine1,
+            addressLine2,
+            city,
+            state,
+            country,
+            zipCode,
+          });
+        }
 
-        toast.success('Contact register successfully!');
+        toast.success('Contact is saved successfully!');
 
         reset();
         handleBack();
@@ -92,7 +133,7 @@ export default function NaturalPersonRegister() {
         handleBack={handleBack}
         handleSave={() => formRef.current.submitForm()}
       >
-        New Contact
+        {id ? 'New Natural Person' : 'Edit Natural Person'}
       </RegisterHeader>
 
       <Form ref={formRef} onSubmit={handleSubmit}>
@@ -159,3 +200,11 @@ export default function NaturalPersonRegister() {
     </Container>
   );
 }
+
+NaturalPersonRegister.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+};
