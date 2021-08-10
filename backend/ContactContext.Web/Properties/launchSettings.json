@@ -12,7 +12,6 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "contact",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -20,7 +19,6 @@
     "ContactContext.Web": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "contact",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

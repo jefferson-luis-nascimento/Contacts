@@ -4,9 +4,12 @@ using ContactContext.Domain.Repositories;
 using ContactContext.Domain.Repositories.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
+using System;
 
 namespace ContactContext.Web
 {
@@ -23,6 +26,21 @@ namespace ContactContext.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddSwaggerGen(c => {
+                c.SwaggerDoc("v1",
+                    new OpenApiInfo
+                    {
+                        Title = "MyContacts API v1",
+                        Version = "v1",
+                        Description = "API to manager Contacts",
+                        Contact = new OpenApiContact
+                        {
+                            Name = "Jefferson Luís Nascimento",
+                            Url = new Uri("https://github.com/jefferson-luis-nascimento"),
+                        }
+                    }); ;
+            });
 
             services.AddScoped(typeof(IContactRepository<>), typeof(ContactRepository<>));
             services.AddScoped<ILegalPersonRepository, LegalPersonRepository>();
@@ -51,6 +69,17 @@ namespace ContactContext.Web
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c => {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "MyContacts API v1");
+            });
+
+            var option = new RewriteOptions();
+            option.AddRedirect("^$", "swagger");
+
+            app.UseRewriter(option);
 
             app.UseCors(builder =>
             {
