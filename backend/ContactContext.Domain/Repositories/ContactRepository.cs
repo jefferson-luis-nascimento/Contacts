@@ -34,12 +34,12 @@ namespace ContactContext.Domain.Repositories
 
         public async Task<TEntity> GetById(Guid id)
         {
-            return (await Task.FromResult(_contacts.FirstOrDefault(contact => contact.Id == id))) as TEntity;
+            return (await Task.FromResult(_contacts.FirstOrDefault(contact => contact != null && contact.Id == id))) as TEntity;
         }
 
         public async Task<TEntity> Update(TEntity contact)
         {
-            var oldContact = _contacts.FirstOrDefault(c => c.Id == contact.Id);
+            var oldContact = _contacts.FirstOrDefault(c => c != null && c.Id == contact.Id);
             oldContact = contact;
             return (await Task.FromResult(oldContact)) as TEntity; 
         }

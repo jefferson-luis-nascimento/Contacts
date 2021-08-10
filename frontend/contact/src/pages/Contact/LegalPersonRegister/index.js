@@ -20,7 +20,7 @@ export default function LegalPersonRegister({ match }) {
   useEffect(() => {
     async function loadContact() {
       if (id) {
-        const response = await api.get(`/contact/legal-person/${id}`);
+        const response = await api.get(`/legalperson/${id}`);
 
         formRef.current.setData({
           companyName: response.data.companyName,
