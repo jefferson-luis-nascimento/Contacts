@@ -11,9 +11,9 @@ namespace ContactContext.Domain.Repositories
 {
     public class ContactRepository<TEntity> : IContactRepository<TEntity> where TEntity : Contact
     {
-        protected List<Contact> _contacts;
+        protected List<TEntity> _contacts;
 
-        public IReadOnlyCollection<Contact> Contacts => _contacts;
+        public IReadOnlyCollection<TEntity> Contacts => _contacts;
 
         public ContactRepository()
         {
@@ -46,26 +46,26 @@ namespace ContactContext.Domain.Repositories
 
         private void InitDatabase()
         {
-            _contacts = new List<Contact>
+            _contacts = new List<TEntity>
             {
-                new LegalPerson(new Name("Eduarda e Emanuelly Transportes ME"),
-                    new Name("Delivery Flash"),
+                (new LegalPerson(new Name("Eduarda e Emanuelly Transportes ME 201"),
+                    new Name("Delivery Flash 1"),
                     new Cnpj("40.353.080/0001-83"),
-                    new Address("Rua Doutor Cláudio Dias da Silva", "208", "Campinas", "SP", "Brazi", "13083-460")),
-                new NaturalPerson(new Name("Victor Cauê Arthur Ferreira"),
+                    new Address("Rua Doutor Cláudio Dias da Silva ok", "208", "Campinas City", "SC", "Brazi", "13083-466"))) as TEntity,
+                (new NaturalPerson(new Name("Victor Cauê Junior Arthur Ferreira"),
                     new Cpf("679.863.369-27"),
                     new Birthday(new DateTime(1953, 6, 19)),
                     Gender.Male,
-                    new Address("Rua Luís de Toledo Piza", "351", "São Paulo", "SP", "Brazil", "08275-070")),
-                new LegalPerson(new Name("Eduarda e Emanuelly Transportes ME"),
+                    new Address("Rua Luís de Toledo Piza", "351", "São Paulo", "SP", "Brazil", "08275-070"))) as TEntity,
+                (new LegalPerson(new Name("Eduarda e Emanuelly Transportes ME--"),
                     new Name("Delivery Flash"),
-                    new Cnpj("40.353.080/0001-83"),
-                    new Address("Rua Doutor Cláudio Dias da Silva", "208", "Campinas", "SP", "Brazi", "13083-460")),
-                new NaturalPerson(new Name("Victor Cauê Arthur Ferreira"),
-                    new Cpf("679.863.369-27"),
+                    new Cnpj("40.353.080/0001-78"),
+                    new Address("Rua Doutor Cláudio Dias da Silva asd", "208", "Campinas", "SP", "Brazi", "13083-460"))) as TEntity,
+                (new NaturalPerson(new Name("Paula Cauê Arthur Ferreira"),
+                    new Cpf("679.863.369-66"),
                     new Birthday(new DateTime(1953, 6, 19)),
-                    Gender.Male,
-                    new Address("Rua Luís de Toledo Piza", "351", "São Paulo", "SP", "Brazil", "08275-070")),
+                    Gender.Female,
+                    new Address("Rua Luís de Toledo Piza da silva", "351", "São Paulo", "SP", "Brazil", "08275-070"))) as TEntity,
             };
         }
     }

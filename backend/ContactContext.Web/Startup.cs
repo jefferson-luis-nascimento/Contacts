@@ -2,9 +2,6 @@ using ContactContext.Domain.Handlers;
 using ContactContext.Domain.Handlers.Interfaces;
 using ContactContext.Domain.Repositories;
 using ContactContext.Domain.Repositories.Interfaces;
-using ContactContext.Domain.Repositories.MemoryRepository;
-using ContactContext.Shared.Repositories;
-using ContactContext.Shared.Repositories.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -27,7 +24,7 @@ namespace ContactContext.Web
         {
             services.AddControllers();
 
-            services.AddScoped(typeof(IRepository<>), typeof(MemoryContactRepository<>));
+            services.AddScoped(typeof(IContactRepository<>), typeof(ContactRepository<>));
             services.AddScoped<ILegalPersonRepository, LegalPersonRepository>();
             services.AddScoped<INaturalPersonRepository, NaturalPersonRepository>();
 
@@ -55,9 +52,17 @@ namespace ContactContext.Web
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseCors(builder =>
+            {
+                builder.WithOrigins("http://localhost:3000");
+                builder.AllowAnyHeader();
+                builder.WithExposedHeaders("Token-Expired");
+                builder.AllowAnyMethod();
+                builder.AllowCredentials();
+                builder.Build();
+            });
 
-            app.UseCors(option => option.AllowAnyOrigin());
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

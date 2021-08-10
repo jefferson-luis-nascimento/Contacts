@@ -6,7 +6,7 @@ using System;
 
 namespace ContactContext.Domain.Commands.Response
 {
-    public class CreateNaturalPersonContactResponse : Notifiable, ICommand
+    public class CreateNaturalPersonContactResponse
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
@@ -20,10 +20,5 @@ namespace ContactContext.Domain.Commands.Response
         public string State { get; set; }
         public string Country { get; set; }
         public string ZipCode { get; set; }
-
-        public void Validate()
-        {
-            
-        }
     }
 }

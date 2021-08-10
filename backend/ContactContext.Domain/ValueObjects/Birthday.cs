@@ -14,7 +14,7 @@ namespace ContactContext.Domain.ValueObjects
 
             AddNotifications(new Contract()
                 .Requires()
-                .IsGreaterThan(Date, DateTime.Today, "Birthday.Date", "The Date must be less than today")
+                .IsLowerThan(Date, DateTime.Today, "Birthday.Date", "The Date must be less than today")
             );
         }
     }
