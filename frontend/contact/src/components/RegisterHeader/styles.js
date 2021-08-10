@@ -22,11 +22,12 @@ export const BackButton = styled.button`
   border: none;
   border-radius: 4px;
   background: #ccc;
-  color: #fff;
+  color: #666;
   width: 100px;
   padding: 5px 10px;
   margin-right: 10px;
   font-weight: bold;
+  font-size: 16px;
 
   &:hover {
     background: ${darken(0.1, '#ccc')};
@@ -39,10 +40,11 @@ export const SaveButton = styled.button`
   border: none;
   border-radius: 4px;
   background: #ccc;
-  color: #fff;
+  color: #666;
   width: 100px;
   padding: 5px 10px;
   font-weight: bold;
+  font-size: 16px;
 
   &:hover {
     background: ${darken(0.1, '#ccc')};

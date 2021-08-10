@@ -22,7 +22,6 @@ export default function Table({ data, paging, loadItems, handleAction }) {
       actions: data.actions,
       items: data.items.map((item) => ({
         id: item.id,
-        typePerson: item.typePerson,
         newItem: Object.values(item).map((value, index) => {
           return {
             value,
@@ -98,7 +97,6 @@ export default function Table({ data, paging, loadItems, handleAction }) {
                 <td key="action" className="actions">
                   <Action
                     id={newItem.id}
-                    typePerson={newItem.typePerson}
                     actions={newData.actions}
                     handleAction={handleAction}
                   />
