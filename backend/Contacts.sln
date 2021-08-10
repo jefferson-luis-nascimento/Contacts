@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactContext.Domain", "ContactContext.Domain\ContactContext.Domain.csproj", "{147A278F-841D-4006-B4AB-C10AAC89A9B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContactContext.Domain", "ContactContext.Domain\ContactContext.Domain.csproj", "{147A278F-841D-4006-B4AB-C10AAC89A9B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactContext.Shared", "ContactContext.Shared\ContactContext.Shared.csproj", "{716F5CF8-9EED-450D-B98F-3355CD5F4286}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContactContext.Shared", "ContactContext.Shared\ContactContext.Shared.csproj", "{716F5CF8-9EED-450D-B98F-3355CD5F4286}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactContext.Tests", "ContactContext.Tests\ContactContext.Tests.csproj", "{E1932B57-51DD-46E9-9B84-F32C773F1CB7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContactContext.Tests", "ContactContext.Tests\ContactContext.Tests.csproj", "{E1932B57-51DD-46E9-9B84-F32C773F1CB7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactContext.Web", "ContactContext.Web\ContactContext.Web.csproj", "{E2B925A4-8E5D-4EBF-8BD2-4B0DD01ADE6E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContactContext.Web", "ContactContext.Web\ContactContext.Web.csproj", "{E2B925A4-8E5D-4EBF-8BD2-4B0DD01ADE6E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
