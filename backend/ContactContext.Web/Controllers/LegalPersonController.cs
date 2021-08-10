@@ -1,5 +1,6 @@
 ﻿using ContactContext.Domain.Commands;
 using ContactContext.Domain.Commands.Requests;
+using ContactContext.Domain.Commands.Response;
 using ContactContext.Domain.Entities;
 using ContactContext.Domain.Handlers.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -9,11 +10,11 @@ using System.Threading.Tasks;
 namespace ContactContext.Web.Controllers
 {
     [ApiController]
-    [Route("contact")]
+    [Route("[controller]")]
     public class LegalPersonController : ControllerBase
     {
         [HttpGet]
-        [Route("/legal-person/{id}")]
+        [Route("{id}")]
         public async Task<IActionResult> Get([FromServices] IGetByIdLegalPersonContactHandler handler, Guid id)
         {
             var command = new GetByIdLegalPersonContactRequest { Id = id };
@@ -21,21 +22,19 @@ namespace ContactContext.Web.Controllers
         }
 
         [HttpPost]
-        [Route("/legal-person")]
         public async Task<IActionResult> CreateNaturalPerson([FromServices] ICreateLegalPersonContactHandler handler,
             [FromBody] CreateLegalPersonContactRequest command)
         {
-            var handleResult = (await handler.Handle(command)) as CommandResult<LegalPerson>;
+            var handleResult = (await handler.Handle(command)) as CommandResult<CreateLegalPersonContactResponse>;
 
             return handleResult.Success ? Ok(handleResult) : BadRequest(handleResult);
         }
 
         [HttpPut]
-        [Route("/legal-person")]
         public async Task<IActionResult> UpdateNaturalPerson([FromServices] IUpdateLegalPersonContactHandler handler,
             [FromBody] UpdateLegalPersonContactRequest command)
         {
-            var handleResult = (await handler.Handle(command)) as CommandResult<LegalPerson>;
+            var handleResult = (await handler.Handle(command)) as CommandResult<UpdateLegalPersonContactResponse>;
 
             return handleResult.Success ? Ok(handleResult) : BadRequest(handleResult);
         }

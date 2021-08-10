@@ -10,12 +10,12 @@ namespace ContactContext.Domain.Repositories
     {
         public async Task<bool> DocumentExists(string number)
         {
-            return await Task.FromResult(_contacts.Any(contact => (contact as LegalPerson).Cnpj.Number == number));
+            return await Task.FromResult(_contacts.Any(contact => contact is LegalPerson && (contact as LegalPerson).Cnpj.Number == number));
         }
 
         public async Task<bool> DocumentExistsExceptCurrent(string number, Guid id)
         {
-            return await Task.FromResult( _contacts.Any(contact => (contact as LegalPerson).Cnpj.Number == number && contact.Id != id));
+            return await Task.FromResult(_contacts.Any(contact => contact is LegalPerson && (contact as LegalPerson).Cnpj.Number == number && contact.Id != id));
         }
     }
 }
