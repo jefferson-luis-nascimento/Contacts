@@ -128,7 +128,7 @@ export default function LegalPersonRegister({ match }) {
         handleBack={handleBack}
         handleSave={() => formRef.current.submitForm()}
       >
-        {id ? 'New Legal Person' : 'Edit Legal Person'}
+        {!id ? 'New Legal Person' : 'Edit Legal Person'}
       </RegisterHeader>
 
       <Form ref={formRef} onSubmit={handleSubmit}>

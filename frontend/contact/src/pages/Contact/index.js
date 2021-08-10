@@ -110,17 +110,21 @@ export default function Contact() {
     }
   }
 
-  async function handleView(id) {
-    history.push(`/register/${id}/true`);
+  async function handleView(id, typePerson) {
+    if (typePerson === 'Legal') {
+      history.push(`/edit-lp/${id}/true`);
+    } else {
+      history.push(`/edit-np/${id}/true`);
+    }
   }
 
-  function handleAction(action, id) {
+  function handleAction(action, id, typePerson) {
     switch (action.toLowerCase()) {
       case 'edit':
-        handleEdit(id);
+        handleEdit(id, typePerson);
         break;
       case 'view':
-        handleView(id);
+        handleView(id, typePerson);
         break;
       default:
         throw new Error('Action not found.');
