@@ -25,9 +25,9 @@ namespace ContactContext.Web.Controllers
         public async Task<IActionResult> CreateNaturalPerson([FromServices] ICreateLegalPersonContactHandler handler,
             [FromBody] CreateLegalPersonContactRequest command)
         {
-            var handleResult = (await handler.Handle(command)) as CommandResult<CreateLegalPersonContactResponse>;
+            var handleResult = await handler.Handle(command);
 
-            return handleResult.Success ? Ok(handleResult) : BadRequest(handleResult);
+            return Ok(handleResult);
         }
 
         [HttpPut]
@@ -36,7 +36,7 @@ namespace ContactContext.Web.Controllers
         {
             var handleResult = (await handler.Handle(command)) as CommandResult<UpdateLegalPersonContactResponse>;
 
-            return handleResult.Success ? Ok(handleResult) : BadRequest(handleResult);
+            return Ok(handleResult);
         }
     }
 }

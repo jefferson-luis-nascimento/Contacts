@@ -33,7 +33,7 @@ namespace ContactContext.Web.Controllers
         {
             var handleResult = (await handler.Handle(command)) as CommandResult<CreateNaturalPersonContactResponse>;
 
-            return handleResult.Success ? Ok(handleResult) : BadRequest(handleResult);
+            return Ok(handleResult);
         }
 
         [HttpPut]
@@ -42,7 +42,7 @@ namespace ContactContext.Web.Controllers
         {
             var handleResult = (await handler.Handle(command)) as CommandResult<UpdateNaturalPersonContactResponse>;
 
-            return handleResult.Success ? Ok(handleResult) : BadRequest(handleResult);
+            return Ok(handleResult);
         }
     }
 }
