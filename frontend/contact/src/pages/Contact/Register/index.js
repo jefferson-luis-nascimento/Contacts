@@ -15,18 +15,20 @@ import history from '~/services/history';
 export default function Register({ match }) {
   const formRef = useRef(null);
 
-  const { id } = match.params;
+  const { id, typePerson } = match.params;
 
   useEffect(() => {
     async function loadDeliverymen() {
       if (id) {
-        const response = await api.get(`/deliverymen/${id}`);
+        const response = await api.get(`/contact/${id}`);
 
-        formRef.current.setData({
-          name: response.data.name,
-          email: response.data.email,
-          avatar_id: response.data.avatar_id,
-        });
+        if (typePerson === 'Legal') {
+          formRef.current.setData({
+            companyName: response.data.companyName,
+            tradeName: response.data.tradeName,
+            cnpj: response.data.cnpj,
+          });
+        }
 
         formRef.current.setFieldValue('avatar', response.data.avatar);
       }
@@ -129,7 +131,8 @@ export default function Register({ match }) {
 Register.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
-      id: PropTypes.number.isRequired,
+      id: PropTypes.string.isRequired,
+      typePerson: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
 };

@@ -2,7 +2,9 @@ using ContactContext.Domain.Handlers;
 using ContactContext.Domain.Handlers.Interfaces;
 using ContactContext.Domain.Repositories;
 using ContactContext.Domain.Repositories.Interfaces;
-using ContactContext.Shared.Handlers;
+using ContactContext.Domain.Repositories.MemoryRepository;
+using ContactContext.Shared.Repositories;
+using ContactContext.Shared.Repositories.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -25,12 +27,14 @@ namespace ContactContext.Web
         {
             services.AddControllers();
 
-            services.AddScoped(typeof(IContactRepository<>), typeof(ContactRepository<>));
+            services.AddScoped(typeof(IRepository<>), typeof(MemoryContactRepository<>));
             services.AddScoped<ILegalPersonRepository, LegalPersonRepository>();
             services.AddScoped<INaturalPersonRepository, NaturalPersonRepository>();
 
             services.AddScoped<IGetAllContactHandler, GetAllContactHandler>();
             services.AddScoped<IGetByIdContactHandler, GetByIdContactHandler>();
+            services.AddScoped<IGetByIdLegalPersonContactHandler, GetByIdLegalPersonContactHandler>();
+            services.AddScoped<IGetByIdNaturalPersonContactHandler, GetByIdNaturalPersonContactHandler>();
             services.AddScoped<ICreateLegalPersonContactHandler, CreateLegalPersonContactHandler>();
             services.AddScoped<ICreateNaturalPersonContactHandler, CreateNaturalPersonContactHandler>();
             services.AddScoped<IUpdateLegalPersonContactHandler, UpdateLegalPersonContactHandler>();

@@ -35,6 +35,7 @@ export default function Contact() {
           columns: [
             { name: 'Id', type: 'id', show: false },
             { name: 'Index', show: false },
+            { name: 'Type' },
             { name: 'Name' },
             { name: 'Document' },
             { name: 'City' },
@@ -44,6 +45,8 @@ export default function Contact() {
             return {
               id: contact.id,
               index,
+              typePerson:
+                contact.typePerson === 'LegalPerson' ? 'Legal' : 'Natural',
               name:
                 contact.typePerson === 'LegalPerson'
                   ? contact.companyName
@@ -95,21 +98,21 @@ export default function Contact() {
     history.push('/register');
   }
 
-  function handleEdit(id) {
-    history.push(`/register/${id}`);
+  function handleEdit(id, typePerson) {
+    history.push(`/register/${id}/${typePerson}`);
   }
 
-  async function handleView(id) {
-    history.push(`/register/${id}/true`);
+  async function handleView(id, typePerson) {
+    history.push(`/register/${id}/${typePerson}/true`);
   }
 
-  function handleAction(action, id) {
+  function handleAction(action, id, typePerson) {
     switch (action.toLowerCase()) {
       case 'edit':
-        handleEdit(id);
+        handleEdit(id, typePerson);
         break;
       case 'view':
-        handleView(id);
+        handleView(id, typePerson);
         break;
       default:
         throw new Error('Action not found.');

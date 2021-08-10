@@ -3,6 +3,7 @@ using ContactContext.Domain.Commands.Requests;
 using ContactContext.Domain.Entities;
 using ContactContext.Domain.Handlers.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 
 namespace ContactContext.Web.Controllers
@@ -11,6 +12,14 @@ namespace ContactContext.Web.Controllers
     [Route("contact")]
     public class LegalPersonController : ControllerBase
     {
+        [HttpGet]
+        [Route("/legal-person/{id}")]
+        public async Task<IActionResult> Get([FromServices] IGetByIdLegalPersonContactHandler handler, Guid id)
+        {
+            var command = new GetByIdLegalPersonContactRequest { Id = id };
+            return Ok(await handler.Handle(command));
+        }
+
         [HttpPost]
         [Route("/legal-person")]
         public async Task<IActionResult> CreateNaturalPerson([FromServices] ICreateLegalPersonContactHandler handler,
